@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bello's Wash & Folds</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0D1B2A;
+      --sky:    #C8E6F5;
+      --foam:   #EAF6FF;
+      --white:  #FFFFFF;
+      --gold:   #D4A843;
+      --mist:   #F4F9FD;
+      --text:   #1A2733;
+      --soft:   #6B8499;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 5%;
+      background: rgba(13,27,42,0.92);
+      backdrop-filter: blur(10px);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.9rem; font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold); color: var(--navy);
+      border: none; padding: 10px 22px;
+      border-radius: 4px; font-weight: 600;
+      font-size: 0.88rem; cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: 0.03em;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.88; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex; align-items: center;
+      padding: 120px 5% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Signature element: large fabric wave SVG background */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 80% 50%, rgba(200,230,245,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(212,168,67,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    /* Floating bubble accents */
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(200,230,245,0.06);
+      animation: drift 8s ease-in-out infinite;
+    }
+    .bubble:nth-child(1) { width: 300px; height: 300px; top: -80px; right: 10%; animation-delay: 0s; }
+    .bubble:nth-child(2) { width: 180px; height: 180px; bottom: 10%; right: 25%; animation-delay: 2s; }
+    .bubble:nth-child(3) { width: 100px; height: 100px; top: 40%; right: 5%; animation-delay: 4s; }
+    @keyframes drift {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-18px); }
+    }
+
+    .hero-content { position: relative; max-width: 640px; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 24px;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 28px; height: 1px; background: var(--gold);
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      font-weight: 900; line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    h1 em { font-style: normal; color: var(--sky); }
+    .hero-sub {
+      font-size: 1.1rem; line-height: 1.7;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 40px; max-width: 480px;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold); color: var(--navy);
+      padding: 14px 32px; border-radius: 4px;
+      font-weight: 700; font-size: 0.95rem;
+      text-decoration: none; letter-spacing: 0.02em;
+      transition: opacity 0.2s; display: inline-block;
+    }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-outline {
+      border: 1.5px solid rgba(255,255,255,0.3); color: var(--white);
+      padding: 14px 32px; border-radius: 4px;
+      font-weight: 500; font-size: 0.95rem;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s; display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--sky); color: var(--sky); }
+
+    /* ── TRUST STRIP ── */
+    .trust-strip {
+      background: var(--gold);
+      padding: 16px 5%;
+      display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.85rem; font-weight: 600; color: var(--navy);
+      letter-spacing: 0.03em;
+    }
+    .trust-icon { font-size: 1rem; }
+
+    /* ── SECTION BASE ── */
+    section { padding: 90px 5%; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 12px;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700; line-height: 1.2;
+      color: var(--navy); margin-bottom: 18px;
+    }
+    .section-intro {
+      font-size: 1rem; line-height: 1.7;
+      color: var(--soft); max-width: 540px;
+    }
+
+    /* ── SERVICES ── */
+    .services { background: var(--mist); }
+    .services-header { margin-bottom: 52px; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .service-card {
+      background: var(--white);
+      border: 1px solid rgba(13,27,42,0.08);
+      border-radius: 8px;
+      padding: 36px 28px;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .service-card:hover {
+      box-shadow: 0 12px 40px rgba(13,27,42,0.1);
+      transform: translateY(-4px);
+    }
+    .service-icon {
+      width: 48px; height: 48px;
+      background: var(--sky);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 20px;
+    }
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--navy); margin-bottom: 10px;
+    }
+    .service-card p { font-size: 0.9rem; line-height: 1.65; color: var(--soft); }
+
+    /* ── HOW IT WORKS ── */
+    .how { background: var(--navy); }
+    .how h2, .how .section-label { color: var(--white); }
+    .how .section-label { color: var(--gold); }
+    .how .section-intro { color: rgba(255,255,255,0.55); }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0; margin-top: 52px;
+    }
+    .step {
+      padding: 0 32px 0 0;
+      border-right: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+    }
+    .step:last-child { border-right: none; padding-right: 0; }
+    .step-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem; font-weight: 900;
+      color: rgba(200,230,245,0.12); line-height: 1;
+      margin-bottom: 16px;
+    }
+    .step h3 {
+      font-size: 1rem; font-weight: 600;
+      color: var(--white); margin-bottom: 10px;
+    }
+    .step p { font-size: 0.88rem; line-height: 1.65; color: rgba(255,255,255,0.5); }
+
+    /* ── WHY US ── */
+    .why { background: var(--foam); }
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: center;
+    }
+    .why-points { margin-top: 32px; display: flex; flex-direction: column; gap: 24px; }
+    .why-point { display: flex; gap: 16px; align-items: flex-start; }
+    .why-check {
+      width: 28px; height: 28px; min-width: 28px;
+      background: var(--navy); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); font-size: 0.75rem; margin-top: 2px;
+    }
+    .why-point h4 { font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+    .why-point p { font-size: 0.88rem; line-height: 1.6; color: var(--soft); }
+    .why-visual {
+      background: var(--navy);
+      border-radius: 12px;
+      padding: 48px 36px;
+      text-align: center;
+    }
+    .why-visual .big-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem; font-weight: 900; color: var(--gold);
+      line-height: 1;
+    }
+    .why-visual p { color: rgba(255,255,255,0.55); font-size: 0.9rem; margin-top: 10px; }
+    .why-visual .divider {
+      width: 40px; height: 2px;
+      background: var(--gold); margin: 24px auto;
+    }
+    .why-visual .tagline {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 700;
+      color: var(--white); line-height: 1.4;
+    }
+
+    /* ── CONTACT ── */
+    .contact { background: var(--white); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: start; margin-top: 48px;
+    }
+    .contact-info { display: flex; flex-direction: column; gap: 28px; }
+    .contact-item { display: flex; gap: 16px; align-items: flex-start; }
+    .contact-item-icon {
+      width: 44px; height: 44px; min-width: 44px;
+      background: var(--navy); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .contact-item h4 { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--soft); margin-bottom: 4px; }
+    .contact-item p { font-size: 1rem; font-weight: 500; color: var(--navy); }
+    .contact-item a { color: var(--navy); text-decoration: none; }
+    .contact-item a:hover { color: var(--gold); }
+    .contact-cta-box {
+      background: var(--mist);
+      border: 1px solid rgba(13,27,42,0.08);
+      border-radius: 8px; padding: 36px;
+    }
+    .contact-cta-box h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 700; color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .contact-cta-box p { font-size: 0.9rem; color: var(--soft); line-height: 1.65; margin-bottom: 28px; }
+    .call-btn {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--navy); color: var(--white);
+      padding: 16px 24px; border-radius: 6px;
+      text-decoration: none; font-weight: 600;
+      font-size: 1rem; transition: background 0.2s;
+    }
+    .call-btn:hover { background: #1a2e42; }
+    .call-btn .call-icon { font-size: 1.2rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      padding: 40px 5%;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 20px;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700; color: var(--white);
+    }
+    .footer-logo span { color: var(--gold); }
+    footer p { font-size: 0.82rem; color: rgba(255,255,255,0.4); }
+    .footer-tagline {
+      font-size: 0.82rem; color: rgba(255,255,255,0.35);
+      font-style: italic;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 5%; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 5% 60px; }
+      .steps { grid-template-columns: 1fr; gap: 32px; }
+      .step { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 0 0 32px 0; }
+      .step:last-child { border-bottom: none; padding-bottom: 0; }
+      .why-grid { grid-template-columns: 1fr; }
+      .why-visual { display: none; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .trust-strip { gap: 20px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bubble { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Bello's <span>Wash & Folds</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#why">Why us</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="tel:07014087458"><button class="nav-cta">Call us now</button></a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Professional Laundry & Dry Cleaning</div>
+    <h1>Clean clothes,<br /><em>zero stress.</em></h1>
+    <p class="hero-sub">
+      Bello's Wash & Folds takes care of your clothes the way they deserve — 
+      handled with care, returned fresh, folded perfectly.
+    </p>
+    <div class="hero-actions">
+      <a href="tel:07014087458" class="btn-primary">📞 Book a pickup</a>
+      <a href="#services" class="btn-outline">See our services</a>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-item"><span class="trust-icon">✅</span> Fast Turnaround</div>
+  <div class="trust-item"><span class="trust-icon">👕</span> Gentle on Fabrics</div>
+  <div class="trust-item"><span class="trust-icon">💰</span> Affordable Rates</div>
+  <div class="trust-item"><span class="trust-icon">🚚</span> Pickup & Delivery</div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header">
+    <div class="section-label">What we do</div>
+    <h2>Every fabric,<br />treated right</h2>
+    <p class="section-intro">From everyday wear to delicate garments, we handle each piece with the care it deserves.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">👔</div>
+      <h3>Dry Cleaning</h3>
+      <p>Professional solvent cleaning for suits, gowns, blazers, and any garment that says "dry clean only."</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🫧</div>
+      <h3>Wash & Fold</h3>
+      <p>Your everyday clothes washed, dried, and folded with care — ready to go straight into the wardrobe.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">👗</div>
+      <h3>Delicate Care</h3>
+      <p>Lace, silk, chiffon, and other special fabrics cleaned with the gentle hand they need.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔥</div>
+      <h3>Ironing & Pressing</h3>
+      <p>Crisp, sharp, wrinkle-free. Professional pressing that keeps every outfit looking its best.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🛏️</div>
+      <h3>Bedding & Linen</h3>
+      <p>Sheets, duvet covers, pillowcases, and towels — washed fresh and folded clean.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🚚</div>
+      <h3>Pickup & Delivery</h3>
+      <p>We come to you. Schedule a pickup and get your clothes delivered back to your door.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-label">Simple process</div>
+  <h2>Ready in three steps</h2>
+  <p class="section-intro">Getting your laundry done with us is as easy as making a phone call.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>Call or text us</h3>
+      <p>Reach out via phone to tell us what you need. We'll arrange a convenient time for pickup or drop-off.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>We collect your clothes</h3>
+      <p>Drop them at our location or let us come to you. We sort, inspect, and treat each item properly.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Fresh & returned to you</h3>
+      <p>Clean, pressed, folded, and smelling great — we return your clothes on time, every time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why" id="why">
+  <div class="why-grid">
+    <div>
+      <div class="section-label">Why choose us</div>
+      <h2>Clean you can<br />count on</h2>
+      <div class="why-points">
+        <div class="why-point">
+          <div class="why-check">✓</div>
+          <div>
+            <h4>Experienced & careful hands</h4>
+            <p>Every garment is inspected and treated according to its fabric type — nothing goes in the wrong cycle.</p>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-check">✓</div>
+          <div>
+            <h4>Honest pricing</h4>
+            <p>No hidden charges. You know the cost before we start, and you only pay for what you send.</p>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-check">✓</div>
+          <div>
+            <h4>Prompt turnaround</h4>
+            <p>We respect your schedule. Most orders are ready within 24–48 hours, depending on the service.</p>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-check">✓</div>
+          <div>
+            <h4>Personal service</h4>
+            <p>You're speaking to the owner, not a call centre. Your clothes are always in good hands.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="why-visual">
+      <div class="big-num">100%</div>
+      <p>satisfaction commitment</p>
+      <div class="divider"></div>
+      <div class="tagline">"We treat your clothes<br />like our own."</div>
+      <p style="margin-top:20px;">— Bello Ifeoluwa Ayomide,<br />Founder</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-label">Get in touch</div>
+  <h2>Ready to get started?</h2>
+  <p class="section-intro">Give us a call or stop by. We're here to make laundry day the easiest part of your week.</p>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-item-icon">📞</div>
+        <div>
+          <h4>Phone</h4>
+          <p><a href="tel:07014087458">070 1408 7458</a></p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">🏢</div>
+        <div>
+          <h4>Business</h4>
+          <p>Bello's Wash & Folds</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">⏰</div>
+        <div>
+          <h4>Hours</h4>
+          <p>Mon – Sat: 8am – 7pm<br />Sun: Delivery only</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">👤</div>
+        <div>
+          <h4>Owner</h4>
+          <p>Bello Ifeoluwa Ayomide</p>
+        </div>
+      </div>
+    </div>
+    <div class="contact-cta-box">
+      <h3>Book your first pickup today</h3>
+      <p>One call is all it takes. Tell us what you need and we'll handle the rest — from your doorstep back to your wardrobe, fresh and clean.</p>
+      <a href="tel:07014087458" class="call-btn">
+        <span class="call-icon">📲</span>
+        Call 070 1408 7458
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Bello's <span>Wash & Folds</span></div>
+  <p class="footer-tagline">Fresh clothes, happy life.</p>
+  <p>© 2026 Bello's Wash & Folds. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
